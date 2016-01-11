@@ -9,9 +9,7 @@
 title: 王扣扣的个人博客
 email: 954014787@qq.com
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  新人入门，请大家多多指教~
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://codeit.wang" # the base hostname & protocol for your site
 twitter_username: ter9527
