@@ -265,4 +265,6 @@ public staticvoid main(String[] args) {
 
 本质上来讲，泛型技术只是一种方便程序员进行代码开发的语法糖，在编译器生成的字节码文件中，泛型将被原生类型（Raw Type）所取代。对运行时来说，语法糖并不会提供实质性的功能改进，但它能提升语法的严谨性、可读性，减少编码出错的几率。
 
+**[官网文档](http://docs.oracle.com/javase/tutorial/extra/generics/index.html)**
+
 （完）
