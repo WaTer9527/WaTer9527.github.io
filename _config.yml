@@ -6,8 +6,8 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: 王扣扣的个人博客
-email: 954014787@qq.com
+title: 王涛的个人博客
+email: wagntaoonline@qq.com
 description: > # this means to ignore newlines until "baseurl:"
   新人入门，请大家多多指教~
 baseurl: "" # the subpath of your site, e.g. /blog
