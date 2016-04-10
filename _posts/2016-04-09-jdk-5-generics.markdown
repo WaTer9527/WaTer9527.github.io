@@ -245,7 +245,7 @@ fromArrayToCollection(na, cs);
 public  <T> void go(T t) {
     System.out.println("genericfunction");
 }
-public voidgo(String str) {
+public void go(String str) {
     System.out.println("normalfunction");
 }
 public staticvoid main(String[] args) {
