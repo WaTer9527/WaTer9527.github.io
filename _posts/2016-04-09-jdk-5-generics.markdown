@@ -248,7 +248,7 @@ public  <T> void go(T t) {
 public void go(String str) {
     System.out.println("normalfunction");
 }
-public staticvoid main(String[] args) {
+public static void main(String[] args) {
     FuncGenric fg = new FuncGenric();
     fg.go("haha");//打印normal function
     fg.<String>go("haha");//打印generic function
