@@ -4,6 +4,7 @@ title:  "JDK5.0新增特性：泛型"
 date:   2016-04-09 22:30:32 +0800
 categories: dev
 tags: Java
+author: 王涛
 ---
 
 ## What - 什么是泛型？
