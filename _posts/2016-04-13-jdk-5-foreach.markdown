@@ -62,7 +62,7 @@ for (Suit suit : suits)
 foreach循环同样适用于数组，区别在于隐藏的是索引变量而不是迭代器。下面方法返回的是一个整数数组中所有元素的和：
 
 {% highlight java %}
-// Returns the sum of the elements of a
+// Returns the sum of the elements of an int array
 int sum(int[] a) {
     int result = 0;
     for (int i : a)
