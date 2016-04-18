@@ -1,0 +1,283 @@
+---
+layout: post
+title:  "JDK5.0新增特性：枚举-Enums"
+date:   2016-04-18 08:26:32 +0800
+categories: dev
+tags: Java
+author: 王涛
+---
+
+在JDK5.0以前的版本，枚举类型一般是通过定义一组int类型的常量来实现的：
+
+{% highlight java %}
+// int Enum Pattern - has severe problems!
+public static final int SEASON_WINTER = 0;
+public static final int SEASON_SPRING = 1;
+public static final int SEASON_SUMMER = 2;
+public static final int SEASON_FALL   = 3;
+{% endhighlight %}
+
+这种模式有许多问题，例如：
+
+* **不是类型安全的**
+因为上面的常量season只是int类型的数据，在传参时可以传入任何int类型的数据，甚至可以将两个season对象相加（这其实是没有意义的）。
+
+* **没有命名空间**
+为了避免和其他常量组成的枚举冲突，上面的实现方式只好在常量名称的头部加字符串来区分（这个例子里是SEASON_）
+
+* **脆弱性**
+因为int枚举是编译期常量，他们被库的调用者使用，如果改变他们（增加一个新常量或者更改现有常量的顺序），类库必须进行重新编译升级。如果没有这样做，运行时可能会出现各种坑。
+
+* **打印出的信息是无意义的**
+因为他们只是整数，如果打印出来得到的只是一个数字，并不能表现其他等任何信息。
+
+在JDK5.0中，Java™编程语言从语言层面提供了对枚举类型的支持。最简单的表述形式可以如下：
+
+{% highlight java %}
+enum Season { WINTER, SPRING, SUMMER, FALL }
+{% endhighlight %}
+
+当然，枚举不止这种简单形式。枚举类型定义为独立的类enum。除了解决上面提到的问题，它还允许自定义任意的方法和成员变量、实现任意的接口。
+
+下面是一个使用枚举实现扑克牌的例子：
+
+{% highlight java %}
+import java.util.*;
+
+public class Card {
+    public enum Rank { DEUCE, THREE, FOUR, FIVE, SIX,
+        SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE }
+
+    public enum Suit { CLUBS, DIAMONDS, HEARTS, SPADES }
+
+    private final Rank rank;
+    private final Suit suit;
+    private Card(Rank rank, Suit suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
+    public Rank rank() { return rank; }
+    public Suit suit() { return suit; }
+    public String toString() { return rank + " of " + suit; }
+
+    private static final List<Card> protoDeck = new ArrayList<Card>();
+
+    // Initialize prototype deck
+    static {
+        for (Suit suit : Suit.values())
+            for (Rank rank : Rank.values())
+                protoDeck.add(new Card(rank, suit));
+    }
+
+    public static ArrayList<Card> newDeck() {
+        return new ArrayList<Card>(protoDeck); // Return copy of prototype deck
+    }
+}
+{% endhighlight %}
+
+上面例子中的toString方法结合Rank和Suit的toString方法。Card类的私有构造函数接收两个参数，一个Rank类型对象和一个Suit类型对象。如果在调用该构造函数时弄反了两个参数的顺序，编译器将给出错误提示。如果是通过定义一组int类型的常量来实现的枚举，那么这个错误直到运行时才会被发现。
+
+值得注意的是每个枚举类型都会有一个静态方法values()，它返回一个数组，该数组包含该枚举类型所有的常量，并按声明顺序排列。这个方法一般与foreach循环结合使用，用来迭代枚举类型中所有的常量。
+
+下面的例子是一个发牌程序，对上面的Card进行操作。它从命令行读取两个数字，分别代表发给几个人以及每个人发几张牌。然后，获取一副新牌、洗牌、发牌并打印出每个人手中的牌。
+
+{% highlight java %}
+import java.util.*;
+
+public class Deal {
+    public static void main(String args[]) {
+        int numHands = Integer.parseInt(args[0]);
+        int cardsPerHand = Integer.parseInt(args[1]);
+        List<Card> deck  = Card.newDeck();
+        Collections.shuffle(deck);
+        for (int i=0; i < numHands; i++)
+            System.out.println(deal(deck, cardsPerHand));
+    }
+
+    public static ArrayList<Card> deal(List<Card> deck, int n) {
+         int deckSize = deck.size();
+         List<Card> handView = deck.subList(deckSize-n, deckSize);
+         ArrayList<Card> hand = new ArrayList<Card>(handView);
+         handView.clear();
+         return hand;
+     }
+}
+
+$ java Deal 4 5
+[FOUR of HEARTS, NINE of DIAMONDS, QUEEN of SPADES, ACE of SPADES, NINE of SPADES]
+[DEUCE of HEARTS, EIGHT of SPADES, JACK of DIAMONDS, TEN of CLUBS, SEVEN of SPADES]
+[FIVE of HEARTS, FOUR of DIAMONDS, SIX of DIAMONDS, NINE of CLUBS, JACK of CLUBS]
+[SEVEN of HEARTS, SIX of CLUBS, DEUCE of DIAMONDS, THREE of SPADES, EIGHT of CLUBS]
+{% endhighlight %}
+
+如果你想为一个枚举增加数据和行为，例如：对于太阳系中的所有行星，知道每个行星的质量和半径，要计算出它们表面的重力和物体在它上面的重量。下面是这种枚举的实现：
+
+{% highlight java %}
+public enum Planet {
+    MERCURY (3.303e+23, 2.4397e6),
+    VENUS   (4.869e+24, 6.0518e6),
+    EARTH   (5.976e+24, 6.37814e6),
+    MARS    (6.421e+23, 3.3972e6),
+    JUPITER (1.9e+27,   7.1492e7),
+    SATURN  (5.688e+26, 6.0268e7),
+    URANUS  (8.686e+25, 2.5559e7),
+    NEPTUNE (1.024e+26, 2.4746e7),
+    PLUTO   (1.27e+22,  1.137e6);
+
+    private final double mass;   // in kilograms
+    private final double radius; // in meters
+    Planet(double mass, double radius) {
+        this.mass = mass;
+        this.radius = radius;
+    }
+    public double mass()   { return mass; }
+    public double radius() { return radius; }
+
+    // universal gravitational constant  (m3 kg-1 s-2)
+    public static final double G = 6.67300E-11;
+
+    public double surfaceGravity() {
+        return G * mass / (radius * radius);
+    }
+    public double surfaceWeight(double otherMass) {
+        return otherMass * surfaceGravity();
+    }
+}
+{% endhighlight %}
+
+枚举类型Planet包含一个带参数的构造函数，其中的每一个枚举常量在创建时都会调用该带参的构造函数。
+
+下面的例子是已知地球上你的体重，然后计算并打印出在其他行星上的体重（相同计量单位）：
+
+{% highlight java %}
+public static void main(String[] args) {
+        double earthWeight = Double.parseDouble(args[0]);
+        double mass = earthWeight/EARTH.surfaceGravity();
+        for (Planet p : Planet.values())
+           System.out.printf("Your weight on %s is %f%n",
+                             p, p.surfaceWeight(mass));
+    }
+
+$ java Planet 175
+Your weight on MERCURY is 66.107583
+Your weight on VENUS is 158.374842
+Your weight on EARTH is 175.000000
+Your weight on MARS is 66.279007
+Your weight on JUPITER is 442.847567
+Your weight on SATURN is 186.552719
+Your weight on URANUS is 158.397260
+Your weight on NEPTUNE is 199.207413
+Your weight on PLUTO is 11.703031
+{% endhighlight %}
+
+为枚举常量添加行为也可以差异化，即一个方法对不同的枚举常量执行不同的行为。一种实现的方式是通过switch语句，下面的例子就是通过eval这个方法来对枚举常量实现的四则运算。
+
+{% highlight java %}
+public enum Operation {
+    PLUS, MINUS, TIMES, DIVIDE;
+
+    // Do arithmetic op represented by this constant
+    double eval(double x, double y){
+        switch(this) {
+            case PLUS:   return x + y;
+            case MINUS:  return x - y;
+            case TIMES:  return x * y;
+            case DIVIDE: return x / y;
+        }
+        throw new AssertionError("Unknown op: " + this);
+    }
+}
+{% endhighlight %}
+
+这种写法原理不错，美中不足的是必须加上throw语句来完善逻辑。更不幸的是，如果为Operation类型增加一个常量，switch语句也必须随之增加一条case，否则在实际运行中就可能抛出异常。
+
+有一种实现方式可以完美解决上面的问题。为枚举类型声明一个抽象方法，并且在每个常量中增加一个具体的方法来重写这个抽象方法。这些方法被称为constant-specific方法。下面是通过这种方式实现的四则运算的常量枚举：
+
+{% highlight java %}
+public enum Operation {
+  PLUS   { double eval(double x, double y) { return x + y; } },
+  MINUS  { double eval(double x, double y) { return x - y; } },
+  TIMES  { double eval(double x, double y) { return x * y; } },
+  DIVIDE { double eval(double x, double y) { return x / y; } };
+
+  // Do arithmetic op represented by this constant
+  abstract double eval(double x, double y);
+}
+{% endhighlight %}
+
+下面的样例程序是对Operation类的测试。它从命令行接收两个运算对象，遍历所有的操作符，执行操作符并打印出运算方程。
+
+{% highlight java %}
+public static void main(String args[]) {
+        double x = Double.parseDouble(args[0]);
+        double y = Double.parseDouble(args[1]);
+        for (Operation op : Operation.values())
+            System.out.printf("%f %s %f = %f%n", x, op, y, op.eval(x, y));
+    }
+
+$ java Operation 4 2
+4.000000 PLUS 2.000000 = 6.000000
+4.000000 MINUS 2.000000 = 2.000000
+4.000000 TIMES 2.000000 = 8.000000
+4.000000 DIVIDE 2.000000 = 2.000000
+{% endhighlight %}
+
+java.util包下新增了两个类来支持枚举：分别实现了Map和Set的EnumMap和EnumSet。EnumSet（枚举集合）是针对枚举的高效Set实现类。一个枚举集合的所有成员必须都是同一枚举类型。枚举集合支持指定边界的枚举类型的遍历，例如给出下面的枚举类型：
+
+{% highlight java %}
+enum Day { SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY }
+{% endhighlight %}
+
+可以通过EnumSet类提供的一个静态工厂方法实现：
+
+{% highlight java %}
+for (Day d : EnumSet.range(Day.MONDAY, Day.FRIDAY))
+        System.out.println(d);
+{% endhighlight %}
+
+枚举集合还提供了一个获取指定枚举常量集合的方法：
+
+{% highlight java %}
+EnumSet.of(Style.BOLD, Style.ITALIC)
+{% endhighlight %}
+
+同样，EnumMap的是一个高性能的以枚举常量为key的Map实现，枚举映射结合了Map接口的安全性和array的快速访问的优点。如果你想将枚举常量和一个值做映射，那么你应该优先选用枚举映射而不是数组。
+
+本篇文章开始时提到的Card类，包含了一个返回一副扑克的静态工厂方法，但是却没有根据花色和数值获得单张扑克的方法。如果只是将构造函数暴露出来（访问控制符修改为public）将会破坏掉该类的单例属性（每张扑克牌只允许有一个实例存在）。下面是通过使用嵌套的EnumMap来实现一个获得单张扑克牌同时保持了单例的静态工厂方法：
+
+{% highlight java %}
+private static Map<Suit, Map<Rank, Card>> table =
+    new EnumMap<Suit, Map<Rank, Card>>(Suit.class);
+static {
+    for (Suit suit : Suit.values()) {
+        Map<Rank, Card> suitTable = new EnumMap<Rank, Card>(Rank.class);
+        for (Rank rank : Rank.values())
+            suitTable.put(rank, new Card(rank, suit));
+        table.put(suit, suitTable);
+    }
+}
+
+public static Card valueOf(Rank rank, Suit suit) {
+    return table.get(suit).get(rank);
+}
+{% endhighlight %}
+
+首先外层的EnumMap是将花色suit映射到内层的EnumMap，而内层的EnumMap则是映射数值rank到一张扑克牌card。为了保证单例属性，有必要将初始化一副扑克牌时调用构造函数改为调用上面代码的valueOf方法：
+
+{% highlight java %}
+// Initialize prototype deck
+    static {
+        for (Suit suit : Suit.values())
+            for (Rank rank : Rank.values())
+                protoDeck.add(Card.valueOf(rank, suit));
+    }
+{% endhighlight %}
+
+当然，由于扑克牌的初始化依赖于valueOf方法，所以table对象的初始化必须在前面。
+
+那么什么时候才应该使用枚举类型呢？当需要一组固定的常量集合时。可以是自然枚举类型（像太阳系的行星、一周的几天、扑克牌中的花色等），也可以是自定义的枚举类型（像菜单的选项、舍入模式、命令行标记等）。
+
+**[官网文档](http://docs.oracle.com/javase/1.5.0/docs/guide/language/enums.html)**
+
+（完）
