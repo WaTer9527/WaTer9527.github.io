@@ -7,21 +7,21 @@ tags: Java
 author: 王涛
 ---
 
-许多API都会需要写相当数量的模板代码。例如，为了写一个JAX-RPC的web服务，程序员必须提供一组接口及其实现。其实，有一种简便的方法，我们只需要远程访问（提供服务）的方法上加上注解，然后使用工具自动识别这些注解并生成模板代码即可。
+许多API都会需要写相当数量的模板代码。例如，为了写一个JAX-RPC的web服务，程序员必须提供一组接口及其实现。其实，有一种简便的方法，我们只需要为远程访问（提供服务）的方法加上注解，然后使用工具自动识别这些注解并生成模板代码即可。
 
 其他的API需要维护一些附属文件，而这些附属文件是要与源代码中的更改保持同步的。例如JavaBeans需要为每一个bean维护一个BeanInfo的类，Enterprise JavaBean(EJB)则需要部署描述符号（deployment descriptor）。如果这些附属文件中包含的信息是通过程序本身的注解来维护，那么这种维护方式将更方便、不易出错。
 
-Java平台一直有各种专设注解机制。例如修饰符transient就是一个专设的注解，用于表明一个成员变量在序列化时应当被忽略，同时javadoc标签@deprecated也是一个专设的注解，用于表明方法已被弃用，不应该使用。从JDK5.0版本开始，该平台具有通用注解（也称为元数据）工具，它允许程序员定义和使用自己的注解类型。该工具包含注解类型的定义语法，注解类型的声明（使用）语法，注解解释API，注解类文件以及注解处理工具。
+Java平台一直有各种专设注解机制。例如修饰符transient就是一个专设的注解，用于表明一个成员变量在序列化时应当被忽略，同时javadoc的标签@deprecated也是一个专设的注解，用于表明方法已被弃用，不应该使用。从JDK5.0版本开始，该平台具有了通用注解（也称为元数据）工具，它允许程序员定义和使用自己的注解类型。该工具包含注解类型的定义语法、注解类型的声明（使用）语法、注解解释API、注解类文件以及注解处理工具。
 
 注解不会直接影响程序的语义，但是它们会影响工具和类库处理程序的方式，从而间接地影响到程序运行时的语义。注解的访问方式包括源文件、字节码文件、运行时反射。
 
-注解补充Javadoc标签。在一般情况下，如果该标记是为了影响或产生文档，它应该是一个Javadoc标签;否则，它应该是一个注解。
+注解补充Javadoc标签。在一般情况下，如果该标记是为了影响或产生文档，它应该是一个javadoc标签;否则，它应该是一个注解。
 
 典型的应用程序的程序员可能永远不需要定义一个注解类型，但定义注解类型并不难。注释类型的定义和普通接口的定义是类似的：
 
 * 在interface关键字前加@符号。
 
-* 每一个方法定义一个注解类型返回的元素。
+* 每一个方法定义一个注解类型的元素。
 
 * 方法必须是无参的并且没有抛出（throws）声明。
 
@@ -44,7 +44,7 @@ public @interface RequestForEnhancement {
 }
 {% endhighlight %}
 
-一旦定义了一个注解类型，你就可以用它来为声明添加注解。注释是一种特殊的修饰符，并且可以用在任何可以使用其他修饰符（例如public、static、final）的地方。按照约定，注解必须位于其他修饰符的前面。注解的使用：
+一旦定义了一个注解类型，你就可以用它来为声明添加注解。注解是一种特殊的修饰符，并且可以用在任何可以使用其他修饰符（例如public、static、final）的地方。按照约定，注解必须位于其他修饰符的前面。注解的使用：
 
 * 以@符号开头。
 
@@ -119,17 +119,28 @@ public @interface Test { }
 
 {% highlight java %}
 public class Foo {
-    @Test public static void m1() { }
+    @Test 
+	public static void m1() { }
+	
     public static void m2() { }
-    @Test public static void m3() {
+	
+    @Test
+	public static void m3() {
         throw new RuntimeException("Boom");
     }
+	
     public static void m4() { }
-    @Test public static void m5() { }
+	
+    @Test 
+	public static void m5() { }
+	
     public static void m6() { }
-    @Test public static void m7() {
+	
+    @Test 
+	public static void m7() {
         throw new RuntimeException("Crash");
     }
+	
     public static void m8() { }
 }
 {% endhighlight %}
