@@ -2,7 +2,7 @@
 layout: post
 title:  "JDK5.0新增特性：自动装箱与拆箱"
 date:   2016-04-09 21:00:32 +0800
-categories: dev
+categories: blog
 tags: Java
 author: 王涛
 ---

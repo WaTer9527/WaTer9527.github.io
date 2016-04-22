@@ -2,7 +2,7 @@
 layout: post
 title:  "JDK5.0新增特性：注解-Annotations"
 date:   2016-04-20 22:41:31 +0800
-categories: dev
+categories: blog
 tags: Java
 author: 王涛
 ---

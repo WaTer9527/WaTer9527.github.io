@@ -2,7 +2,7 @@
 layout: post
 title:  "JDK5.0新增特性：静态导入"
 date:   2016-04-12 23:30:32 +0800
-categories: dev
+categories: blog
 tags: Java
 author: 王涛
 ---

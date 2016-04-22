@@ -2,7 +2,7 @@
 layout: post
 title:  "JDK5.0新增特性：foreach循环"
 date:   2016-04-13 22:26:32 +0800
-categories: dev
+categories: blog
 tags: Java
 author: 王涛
 ---

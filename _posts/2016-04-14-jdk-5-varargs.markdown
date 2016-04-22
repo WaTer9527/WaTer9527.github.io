@@ -2,7 +2,7 @@
 layout: post
 title:  "JDK5.0新增特性：变长参数-Varargs"
 date:   2016-04-14 23:26:32 +0800
-categories: dev
+categories: blog
 tags: Java
 author: 王涛
 ---

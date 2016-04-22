@@ -2,7 +2,7 @@
 layout: post
 title:  "JDK5.0文档翻译 - 泛型"
 date:   2016-04-09 22:00:32 +0800
-categories: dev
+categories: blog
 tags: Java
 author: 王涛
 ---
