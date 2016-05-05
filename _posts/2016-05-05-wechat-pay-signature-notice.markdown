@@ -107,3 +107,5 @@ String sign = MD5(prestr + "&key=" + key).toUpperCase();
 {% endhighlight %}
 
 **[我的微信公众号开发项目](https://github.com/WaTer9527/wechat-mp4j)**
+
+(完)
