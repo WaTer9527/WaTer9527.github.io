@@ -16,7 +16,7 @@ twitter_username: ter9527
 github_username:  WaTer9527
 gems: [jekyll-paginate]
 paginate: 5
-paginate_path: "page:num"
+paginate_path: "/page:num"
 # Build settings
 markdown: kramdown
 
