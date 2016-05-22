@@ -1,3 +1,3 @@
 include:
 
-* wechat
+* wechat: &#xe651;

@@ -7,23 +7,23 @@
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          <li><i class="iconfont">&#xe651;</i><a class="wechat-link" href="javascript:void(0);"><img class="wechat-qrcode" alt="扫描二维码，关注微信公众号" title="微信公众号water" src="{{ site.url }}/assets/images/qrcode_for_wechat.jpg">water(微信号：water2048)</a></li>
           {% if site.github_username %}
           <li>
             {% include icon-github.html username=site.github_username %}
           </li>
           {% endif %}
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
         </ul>
       </div>
 
       <div class="footer-col footer-col-2">
         <ul class="social-media-list">
-         
+		  
         </ul>
       </div>
 
       <div class="footer-col footer-col-3">
-		<img alt="扫描二维码，关注微信公众号" style="width:100px;height:100px" title="微信公众号water" src="{{ site.url }}/assets/images/qrcode_for_wechat.jpg">
         <p>{{ site.description }}</p>
       </div>
     </div>
