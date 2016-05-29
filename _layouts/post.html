@@ -12,6 +12,14 @@ layout: default
   <div class="post-content" itemprop="articleBody">
     {{ content }}
   </div>
+  <div class="section-nav">
+	{% if page.previous %}
+		<a href="{{page.previous.url}}" class="prev">上一篇：{{page.previous.title}}</a>
+	{% endif %}
+	{% if page.next %}
+		<a href="{{page.next.url}}" class="next">下一篇：{{page.next.title}}</a>
+	{% endif %}
+  </div>
    <!-- 多说评论框 start -->
 		<div class="ds-thread" data-thread-key="{{ page.id }}" data-title="{{ page.title }}" data-url="http://water9527.com{{ page.url }}"></div>
 	<!-- 多说评论框 end -->
