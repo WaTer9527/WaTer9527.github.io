@@ -15,7 +15,7 @@ url: "http://water9527.com" # the base hostname & protocol for your site
 twitter_username: ter9527
 github_username:  WaTer9527
 gems: [jekyll-paginate]
-paginate: 5
+paginate: 10
 paginate_path: "/page:num"
 # Build settings
 markdown: kramdown
