@@ -4,6 +4,8 @@ title:  "微信支付签名算法注意事项"
 date:   2016-05-05 18:22:31 +0800
 categories: blog
 tags: Wechat
+keywords: 微信,公众号,微信支付,签名
+excerpt: 介绍了对接微信支付时，签名算法的实现和注意事项。
 author: 王涛
 ---
 

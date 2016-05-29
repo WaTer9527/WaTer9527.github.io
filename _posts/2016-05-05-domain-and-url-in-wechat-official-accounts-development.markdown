@@ -4,6 +4,8 @@ title:  "微信公众号开发-域名和URL配置"
 date:   2016-05-05 23:45:31 +0800
 categories: blog
 tags: Wechat
+keywords: 微信,公众号,域名,URL配置
+excerpt: 介绍了微信公众号开发时需要配置的域名和URL。
 author: 王涛
 ---
 
