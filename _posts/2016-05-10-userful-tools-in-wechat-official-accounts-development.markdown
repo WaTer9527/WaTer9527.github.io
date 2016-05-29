@@ -4,6 +4,8 @@ title:  "微信公众号开发-那些神兵利器"
 date:   2016-05-10 08:23:41 +0800
 categories: blog
 tags: Wechat
+keywords: 微信,公众号,开发,工具,ngrok,weui
+excerpt: 介绍了微信公众号开发常用的工具，像ngrok，weui，微信web开发者工具，公众平台测试账号，在线接口调试工具。
 author: 王涛
 ---
 
