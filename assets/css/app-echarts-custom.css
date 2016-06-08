@@ -1,0 +1,25 @@
+
+#main {
+    border: 1px solid #9d9d9d;
+    box-shadow: #9d9d9d 0 0 3px;
+    float: left;
+}
+.options-panel {
+    /*background-color: #9d9d9d;*/
+}
+#add-btn,
+.delete-btn {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#add-btn:hover,
+.delete-btn:hover {
+    background-color: #1b6d85;
+    color: #fff;
+}
+
+.dynamic-data-item .col-sm-1,
+.dynamic-data-item .col-sm-5 {
+    height: 34px;
+}
