@@ -37,7 +37,7 @@ $(function(){
             + "<input type=\"text\" class=\"form-control data-name\" value=\"\">"
             + "</div>"
             + "<div class=\"col-sm-1\">"
-            + "<span class=\"glyphicon glyphicon-minus delete-btn\" title=\"刪除改条数据\"></span>"
+            + "<button class=\"btn btn-xs btn-danger delete-btn\" type=\"buttton\" title=\"删除该条数据\">删除</button>"
             + "</div>"
             + "</div>";
 

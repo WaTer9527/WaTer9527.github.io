@@ -10,13 +10,7 @@
 #add-btn,
 .delete-btn {
     cursor: pointer;
-    font-size: 20px;
-}
-
-#add-btn:hover,
-.delete-btn:hover {
-    background-color: #1b6d85;
-    color: #fff;
+    font-size: 14px;
 }
 
 .dynamic-data-item .col-sm-1,
