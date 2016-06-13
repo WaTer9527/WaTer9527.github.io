@@ -2,17 +2,20 @@
  * Created by WaTer on 2016/6/8.
  */
 
-var myChart = echarts.init(document.getElementById('main'))
+var canvasContainer = $("#main");
+var myChart;
 var option = {};
 var option_component_select = $("select"),
     option_component_input = $("input");
 var dataNames = $(".dynamic-data-group .data-name"),
     dataValues = $(".dynamic-data-group .data-value"),
+    dataItem = $(".dynamic-data-group .dynamic-data-item"),
     dynamicDataGroup = $(".dynamic-data-group");
 var addBtn = $("#add-btn"),
     deleteBtns = $(".delete-btn");
 
 $(function(){
+
     refreshChart();
 
     option_component_select.change(function(){
@@ -23,18 +26,19 @@ $(function(){
     })
     dynamicDataGroup.delegate(".delete-btn","click",function(){
         $(this).closest(".dynamic-data-item").remove();
+        refreshDynamicDataGroup();
         refreshChart();
     });
     addBtn.click(function(){
-        var index = dataValues.length + 1;
+        var index = $(".dynamic-data-group .data-value").length + 1;
         //创建元素
         var dynamicDataItem = "<div class=\"dynamic-data-item\">"
             + "<label for=\"\" class=\"col-sm-1 control-label\">" + index + "</label>"
             + "<div class=\"col-sm-5\">"
-            + "<input type=\"text\" class=\"form-control data-value\" value=\"\">"
+            + "<input type=\"text\" class=\"form-control data-value\" value=\"\" placeholder=\"数据值\">"
             + "</div>"
             + "<div class=\"col-sm-5\">"
-            + "<input type=\"text\" class=\"form-control data-name\" value=\"\">"
+            + "<input type=\"text\" class=\"form-control data-name\" value=\"\" placeholder=\"数据名\">"
             + "</div>"
             + "<div class=\"col-sm-1\">"
             + "<button class=\"btn btn-xs btn-danger delete-btn\" type=\"buttton\" title=\"删除该条数据\">删除</button>"
@@ -45,10 +49,17 @@ $(function(){
     });
 });
 
+$(window).resize(function(){
+    refreshChart();
+});
+
 /**
  * 刷新图表
  */
 function refreshChart() {
+
+    canvasContainer.css('height', canvasContainer.css('width'));
+    myChart = echarts.init(canvasContainer.get(0));
 
     var _option = {};
     var title = {};
@@ -62,7 +73,7 @@ function refreshChart() {
 
     legend.orient = $("#legend-orient").val();
     legend.left = $("#legend-left").val();
-    legend.data = $("#legend-data").val().split(",");
+    legend.data = packageLegendData();
 
     serie_pie.type = 'pie';
     packageSerieData(serie_pie);
@@ -74,6 +85,16 @@ function refreshChart() {
     _option.series = series;
 
     myChart.setOption(_option);
+}
+
+function packageLegendData() {
+    var legendData = [];
+    dataNames = $(".dynamic-data-group .data-name");
+
+    for (var i = 0; i < dataNames.length; i++) {
+        legendData[i] = dataNames[i].value;
+    }
+    return legendData;
 }
 
 function packageSerieData(serie) {
@@ -88,5 +109,12 @@ function packageSerieData(serie) {
         dataItem.name = dataNames.get(i).value;
         dataItem.value = parseInt(dataValues.get(i).value);
         serie.data[i] = dataItem;
+    }
+}
+
+function refreshDynamicDataGroup() {
+    dataItem = $(".dynamic-data-group .dynamic-data-item");
+    for(var i = 0; i < dataItem.length; i++){
+        $(dataItem.get(i)).find('label').text(i + 1);
     }
 }

@@ -13,144 +13,163 @@
 </head>
 <body>
 <div class="container-fluid">
+	<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{site.url}}">王涛的博客</a>
+            </div>
 
-    <div id="main" class="col-ms-12 col-md-6" style="height:600px;"></div>
-    <div class="options-panel col-md-6">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="" class="col-sm-2 control-label">标题位置</label>
-                <div class="col-sm-10">
-                    <select id="title-x" class="form-control">
-                        <option value="left" selected>左侧</option>
-                        <option value="center">居中</option>
-                        <option value="right">右侧</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-2 control-label">主标题</label>
-                <div class="col-sm-10">
-                    <input id="title-text" type="text" class="form-control" value="test主标题" placeholder="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-2 control-label">副标题</label>
-                <div class="col-sm-10">
-                    <input id="title-subtext" type="text" class="form-control" value="test副标题" placeholder="">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-2 control-label">图例布局</label>
-                <div class="col-sm-10">
-                    <select id="legend-orient" class="form-control">
-                        <option value="horizontal" selected>水平排列</option>
-                        <option value="vertical">垂直排列</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-2 control-label">图例位置</label>
-                <div class="col-sm-10">
-                    <select id="legend-left" class="form-control">
-                        <option value="left" >左侧</option>
-                        <option value="center">居中</option>
-                        <option value="right" selected>右侧</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-2 control-label">图例数据</label>
-                <div class="col-sm-10">
-                    <input id="legend-data" type="text" class="form-control" value="直接访问,邮件营销,联盟广告,视频广告,搜索引擎" placeholder="使用英文逗号,分隔">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-2 control-label">饼图数据</label>
-                <div class="col-sm-10">
-                    <button id="add-btn" class="btn-xs btn btn-primary" type="button">添加<span class="glyphicon glyphicon-plus" title="点击添加一条新的数据"></span></button>
-                </div>
-            </div>
-            <div class="form-group dynamic-data-group">
-                <div class="dynamic-data-item">
-                    <label for="" class="col-sm-1 control-label">1</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-value" value="335">
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-name" value="直接访问">
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">饼图 <span class="sr-only">(current)</span></a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+        <div class="col-sm-6">
+            <div id="main"></div>
+        </div>
+
+        <div class="options-panel col-sm-6">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">标题位置</label>
+                    <div class="col-sm-10">
+                        <select id="title-x" class="form-control">
+                            <option value="left" selected>左侧</option>
+                            <option value="center">居中</option>
+                            <option value="right">右侧</option>
+                        </select>
                     </div>
                 </div>
-                <div class="dynamic-data-item">
-                    <label for="" class="col-sm-1 control-label">2</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-value" value="310">
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-name" value="邮件营销">
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">主标题</label>
+                    <div class="col-sm-10">
+                        <input id="title-text" type="text" class="form-control" value="test主标题" placeholder="">
                     </div>
                 </div>
-                <div class="dynamic-data-item">
-                    <label for="" class="col-sm-1 control-label">3</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-value" value="234">
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-name" value="联盟广告">
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">副标题</label>
+                    <div class="col-sm-10">
+                        <input id="title-subtext" type="text" class="form-control" value="test副标题" placeholder="">
                     </div>
                 </div>
-                <div class="dynamic-data-item">
-                    <label for="" class="col-sm-1 control-label">4</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-value" value="135">
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-name" value="视频广告">
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">图例布局</label>
+                    <div class="col-sm-10">
+                        <select id="legend-orient" class="form-control">
+                            <option value="horizontal" selected>水平排列</option>
+                            <option value="vertical">垂直排列</option>
+                        </select>
                     </div>
                 </div>
-                <div class="dynamic-data-item">
-                    <label for="" class="col-sm-1 control-label">5</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-value" value="1548">
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control data-name" value="搜索引擎">
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">图例位置</label>
+                    <div class="col-sm-10">
+                        <select id="legend-left" class="form-control">
+                            <option value="left" >左侧</option>
+                            <option value="center">居中</option>
+                            <option value="right" selected>右侧</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </form>
-        <p style="color: red">右键图表，选择另存为即可下载png格式图片</p>
-        <p>基于<a href="http://echarts.baidu.com/index.html">echarts3</a>制作</p>
-		<!-- 多说评论框 start -->
-			<div class="ds-thread" data-thread-key="/app/chart-generator/" data-title="{{ page.title }}" data-url="{{site.url}}{{ page.url }}"></div>
-		<!-- 多说评论框 end -->
-		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-		<script type="text/javascript">
-		var duoshuoQuery = {short_name:"water9527"};
-			(function() {
-				var ds = document.createElement('script');
-				ds.type = 'text/javascript';ds.async = true;
-				ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-				ds.charset = 'UTF-8';
-				(document.getElementsByTagName('head')[0] 
-				 || document.getElementsByTagName('body')[0]).appendChild(ds);
-			})();
-		</script>
-		<!-- 多说公共JS代码 end -->
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">饼图数据</label>
+                    <div class="col-sm-10">
+                        <button id="add-btn" class="btn-xs btn btn-primary" type="button">添加<span class="glyphicon glyphicon-plus" title="点击添加一条新的数据"></span></button>
+                    </div>
+                </div>
+                <div class="form-group dynamic-data-group">
+                    <div class="dynamic-data-item">
+                        <label for="" class="col-sm-1 control-label">1</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-value" value="335" placeholder="数据值">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-name" value="直接访问" placeholder="数据名">
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                        </div>
+                    </div>
+                    <div class="dynamic-data-item">
+                        <label for="" class="col-sm-1 control-label">2</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-value" value="310" placeholder="数据值">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-name" value="邮件营销" placeholder="数据名">
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                        </div>
+                    </div>
+                    <div class="dynamic-data-item">
+                        <label for="" class="col-sm-1 control-label">3</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-value" value="234" placeholder="数据值">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-name" value="联盟广告" placeholder="数据名">
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                        </div>
+                    </div>
+                    <div class="dynamic-data-item">
+                        <label for="" class="col-sm-1 control-label">4</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-value" value="135" placeholder="数据值">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-name" value="视频广告" placeholder="数据名">
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                        </div>
+                    </div>
+                    <div class="dynamic-data-item">
+                        <label for="" class="col-sm-1 control-label">5</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-value" value="1548" placeholder="数据值">
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control data-name" value="搜索引擎" placeholder="数据名">
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-xs btn-danger delete-btn" type="buttton" title="删除该条数据">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <p style="color: red">右键图表，选择另存为即可下载png格式图片</p>
+            <p>基于<a href="http://echarts.baidu.com/index.html">echarts3</a>制作</p>
+			<!-- 多说评论框 start -->
+				<div class="ds-thread" data-thread-key="/app/chart-generator/" data-title="{{ page.title }}" data-url="{{site.url}}{{ page.url }}"></div>
+			<!-- 多说评论框 end -->
+			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+			<script type="text/javascript">
+			var duoshuoQuery = {short_name:"water9527"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+					 || document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
+			</script>
+			<!-- 多说公共JS代码 end -->
+        </div>
     </div>
 </div>
     <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
