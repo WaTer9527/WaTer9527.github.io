@@ -13,7 +13,8 @@ var dataNames = $(".dynamic-data-group .data-name"),
     dataItem = $(".dynamic-data-group .dynamic-data-item"),
     dynamicDataGroup = $(".dynamic-data-group");
 var addBtn = $("#add-btn"),
-    deleteBtns = $(".delete-btn");
+    deleteBtns = $(".delete-btn"),
+    downloadBtn = $("#downloadBtn");
 
 $(function(){
 
@@ -28,6 +29,9 @@ $(function(){
     $(".container-fluid").delegate("input","keyup",function(){
         refreshChart();
     })
+    downloadBtn.click(function(){
+        downloadPng(this);
+    });
     dynamicDataGroup.delegate(".delete-btn","click",function(){
         $(this).closest(".dynamic-data-item").remove();
         refreshDynamicDataGroup();
@@ -122,4 +126,10 @@ function refreshDynamicDataGroup() {
     for(var i = 0; i < dataItem.length; i++){
         $(dataItem.get(i)).find('label').text(i + 1);
     }
+}
+
+function downloadPng(aLink) {
+    var canvas = document.getElementsByTagName("canvas");
+    aLink.download = "chart-pie";
+    aLink.href = canvas[0].toDataURL("image/png");
 }
