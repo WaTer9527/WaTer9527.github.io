@@ -7,7 +7,8 @@ var myChart;
 var option = {};
 var option_component_select = $("select"),
     option_component_input = $("input"),
-    option_component_checkbox = $("input[type=checkbox]");
+    option_component_checkbox = $("input[type=checkbox]"),
+    option_component_colorPicker = $("input[type=color]");
     option_component_range = $("#series-radius");
 var dataNames = $(".dynamic-data-group .data-name"),
     dataValues = $(".dynamic-data-group .data-value"),
@@ -25,6 +26,9 @@ $(function(){
         refreshChart();
     });
     option_component_checkbox.change(function () {
+        refreshChart();
+    });
+    option_component_colorPicker.change(function(){
         refreshChart();
     });
     option_component_range.on("change",null,null,function(){
