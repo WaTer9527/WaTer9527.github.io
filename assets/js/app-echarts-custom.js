@@ -6,7 +6,8 @@ var canvasContainer = $("#main");
 var myChart;
 var option = {};
 var option_component_select = $("select"),
-    option_component_input = $("input");
+    option_component_input = $("input"),
+    option_component_range = $("#series-radius");
 var dataNames = $(".dynamic-data-group .data-name"),
     dataValues = $(".dynamic-data-group .data-value"),
     dataItem = $(".dynamic-data-group .dynamic-data-item"),
@@ -19,6 +20,9 @@ $(function(){
     refreshChart();
 
     option_component_select.change(function(){
+        refreshChart();
+    });
+    option_component_range.on("change",null,null,function(){
         refreshChart();
     });
     $(".container-fluid").delegate("input","keyup",function(){
@@ -76,6 +80,7 @@ function refreshChart() {
     legend.data = packageLegendData();
 
     serie_pie.type = 'pie';
+    serie_pie.radius = $("#series-radius").val() * 100 + "%";
     packageSerieData(serie_pie);
 
     series[0] = serie_pie;
