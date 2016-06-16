@@ -11,7 +11,7 @@ email: wangtaoonline@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   养成良好的生活习惯
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://water9527.com" # the base hostname & protocol for your site
+url: "http://127.0.0.1:4000" #"http://water9527.com" # the base hostname & protocol for your site
 twitter_username: ter9527
 github_username:  WaTer9527
 gems: [jekyll-paginate]
