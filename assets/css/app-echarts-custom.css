@@ -14,12 +14,15 @@
     border-right: 1px solid #9d9d9d;
     background-color: rgb(243, 243, 243);
 }
-#main {
-    /*border: 1px solid #9d9d9d;*/
-    /*box-shadow: #9d9d9d 0 0 3px;*/
+#chart-panel,
+#options-panel {
+    box-sizing: border-box;
+    /*height: 100%;*/
 }
-.options-panel {
-    /*background-color: #9d9d9d;*/
+#main {
+}
+#options-panel {
+    overflow-y: scroll;
 }
 #add-btn,
 .delete-btn {

@@ -2,7 +2,8 @@
  * Created by WaTer on 2016/6/8.
  */
 
-var canvasContainer = $("#main");
+var canvasContainer = $("#main"),
+    optionsContainer = $("#options-panel");
 var myChart;
 var option = {};
 var option_component_select = $("select"),
@@ -73,8 +74,9 @@ $(window).resize(function(){
  * 刷新图表
  */
 function refreshChart() {
-
-    canvasContainer.css('height', canvasContainer.css('width'));
+    console.log($(window).height());
+    canvasContainer.css('height', $(window).height() - 52 - 20);
+    optionsContainer.css('height', $(window).height() - 52 - 20);
     myChart = echarts.init(canvasContainer.get(0));
 
     var _option = {};
@@ -100,8 +102,6 @@ function refreshChart() {
     _option.title = title;
     _option.legend = legend;
     _option.series = series;
-    console.log(document.getElementById('forbiddenBgColor').checked);
-    console.log(!document.getElementById('forbiddenBgColor').checked);
     if(!document.getElementById('forbiddenBgColor').checked)
         _option.backgroundColor = $("#backgroundColor").val();
 
