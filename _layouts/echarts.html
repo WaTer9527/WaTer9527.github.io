@@ -45,33 +45,17 @@
 
         <div class="col-sm-6" id="options-panel">
             <div class="options-container">
-                <ul class="nav nav-tabs" style="margin-bottom: 20px;">
+                <ul class="nav nav-tabs">
                     <li role="presentation" class="active"><a href="#options-global" role="tab" data-toggle="tab" aria-controls="options-global">全局</a></li>
                     <li role="presentation"><a href="#options-series" role="tab" data-toggle="tab" aria-controls="options-series">系列</a></li>
                     <li role="presentation"><a href="#options-data" role="tab" data-toggle="tab" aria-controls="options-data">数据</a></li>
+                    <li role="presentation"><a href="#options-kits" role="tab" data-toggle="tab" aria-controls="options-kits">组件</a> </li>
+                    <li role="presentation"><a href="#options-coordinate" role="tab" data-toggle="tab" aria-controls="options-coordinate">坐标系</a></li>
                     <li role="presentation"><a href="#comments" role="tab" data-toggle="tab" aria-controls="comments">评论</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" role="tabpanel" id="options-global">
                         <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">标题位置</label>
-                                <div class="col-sm-4">
-                                    <select id="title-x" class="form-control">
-                                        <option value="left" selected>左侧</option>
-                                        <option value="center">居中</option>
-                                        <option value="right">右侧</option>
-                                    </select>
-                                </div>
-                                <label for="" class="col-sm-2 control-label">图例位置</label>
-                                <div class="col-sm-4">
-                                    <select id="legend-left" class="form-control">
-                                        <option value="left" >左侧</option>
-                                        <option value="center">居中</option>
-                                        <option value="right" selected>右侧</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">背景颜色</label>
                                 <div class="col-sm-4">
@@ -79,30 +63,11 @@
                                     <label for="forbiddenBgColor">透明</label>
                                     <input type="color" id="backgroundColor" value="#2c343c">
                                 </div>
-                                <label class="col-sm-2 control-label">图例布局</label>
-                                <div class="col-sm-4">
-                                    <select id="legend-orient" class="form-control">
-                                        <option value="horizontal" selected>水平排列</option>
-                                        <option value="vertical">垂直排列</option>
-                                    </select>
-                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane fade" role="tabpanel" id="options-series">
                         <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">主标题</label>
-                                <div class="col-sm-10">
-                                    <input id="title-text" type="text" class="form-control" value="test主标题" placeholder="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="col-sm-2 control-label">副标题</label>
-                                <div class="col-sm-10">
-                                    <input id="title-subtext" type="text" class="form-control" value="test副标题" placeholder="">
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label for="" class="col-sm-2 control-label">半径大小</label>
                                 <div class="col-sm-10">
@@ -182,6 +147,72 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div class="tab-pane fade" role="tabpanel" id="options-kits">
+                        <ul class="nav nav-pills nav-justified">
+                            <li role="presentation" class="active"><a href="#kits-title" aria-controls="kits-title" role="tab" data-toggle="tab">标题</a></li>
+                            <li role="presentation"><a href="#kits-legend" aria-controls="kits-legend" role="tab" data-toggle="tab">图例</a></li>
+                            <li role="presentation"><a href="#kits-visualMap" aria-controls="kits-visualMap" role="tab" data-toggle="tab">视觉映射</a></li>
+                            <li role="presentation"><a href="#kits-dataZoom" aria-controls="kits-dataZoom" role="tab" data-toggle="tab">数据区域缩放</a></li>
+                            <li role="presentation"><a href="#kits-timeline" aria-controls="kits-timeline" role="tab" data-toggle="tab">时间线</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="kits-title">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-4 col-md-2 control-label">标题位置</label>
+                                        <div class="col-sm-8 col-md-4">
+                                            <select id="title-x" class="form-control">
+                                                <option value="left" selected>左侧</option>
+                                                <option value="center">居中</option>
+                                                <option value="right">右侧</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-4 col-md-2 control-label">主标题</label>
+                                        <div class="col-sm-8 col-md-10">
+                                            <input id="title-text" type="text" class="form-control" value="test主标题" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-4 col-md-2 control-label">副标题</label>
+                                        <div class="col-sm-8 col-md-10">
+                                            <input id="title-subtext" type="text" class="form-control" value="test副标题" placeholder="">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="kits-legend">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-4 col-md-2 control-label">图例位置</label>
+                                        <div class="col-sm-8 col-md-4">
+                                            <select id="legend-left" class="form-control">
+                                                <option value="left" >左侧</option>
+                                                <option value="center">居中</option>
+                                                <option value="right" selected>右侧</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-sm-4 col-md-2 control-label">图例布局</label>
+                                        <div class="col-sm-8 col-md-4">
+                                            <select id="legend-orient" class="form-control">
+                                                <option value="horizontal" selected>水平排列</option>
+                                                <option value="vertical">垂直排列</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="kits-visualMap">敬请期待</div>
+                            <div role="tabpanel" class="tab-pane fade" id="kits-dataZoom">敬请期待</div>
+                            <div role="tabpanel" class="tab-pane fade" id="kits-timeline">敬请期待</div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" role="tabpanel" id="options-coordinate">
+                        敬请期待
                     </div>
                     <div class="tab-pane fade" role="tabpanel" id="comments">
                         <!-- 多说评论框 start -->
