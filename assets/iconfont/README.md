@@ -1,3 +1,4 @@
 include:
 
-* wechat: &#xe651;
+* wechat: &#xe600;
+* github: &#xe601;

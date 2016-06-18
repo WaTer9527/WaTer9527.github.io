@@ -16,8 +16,7 @@ var dataNames = $(".dynamic-data-group .data-name"),
     dataItem = $(".dynamic-data-group .dynamic-data-item"),
     dynamicDataGroup = $(".dynamic-data-group");
 var addBtn = $("#add-btn"),
-    deleteBtns = $(".delete-btn"),
-    downloadBtn = $("#downloadBtn");
+    deleteBtns = $(".delete-btn");
 
 $(function(){
 
@@ -37,9 +36,6 @@ $(function(){
     });
     $(".container-fluid").delegate("input","keyup",function(){
         refreshChart();
-    })
-    downloadBtn.click(function(){
-        downloadPng(this);
     });
     dynamicDataGroup.delegate(".delete-btn","click",function(){
         $(this).closest(".dynamic-data-item").remove();
@@ -49,21 +45,26 @@ $(function(){
     addBtn.click(function(){
         var index = $(".dynamic-data-group .data-value").length + 1;
         //创建元素
-        var dynamicDataItem = "<div class=\"dynamic-data-item\">"
+        var dynamicDataItem = "<div class=\"dynamic-data-item clearfix\">"
             + "<label for=\"\" class=\"col-sm-1 control-label\">" + index + "</label>"
-            + "<div class=\"col-sm-5\">"
+            + "<div class=\"col-sm-4\">"
             + "<input type=\"text\" class=\"form-control data-value\" value=\"\" placeholder=\"数据值\">"
             + "</div>"
             + "<div class=\"col-sm-5\">"
             + "<input type=\"text\" class=\"form-control data-name\" value=\"\" placeholder=\"数据名\">"
             + "</div>"
-            + "<div class=\"col-sm-1\">"
+            + "<div class=\"col-sm-2\">"
             + "<button class=\"btn btn-xs btn-danger delete-btn\" type=\"buttton\" title=\"删除该条数据\">删除</button>"
             + "</div>"
             + "</div>";
 
         dynamicDataGroup.append(dynamicDataItem);
     });
+
+    // $("nav .nav-tabs").click(function(e){
+    //     e.preventDefault();
+    //     $(this).tab("show");
+    // });
 });
 
 $(window).resize(function(){
@@ -74,9 +75,8 @@ $(window).resize(function(){
  * 刷新图表
  */
 function refreshChart() {
-    console.log($(window).height());
     canvasContainer.css('height', $(window).height() - 52 - 20);
-    optionsContainer.css('height', $(window).height() - 52 - 20);
+    optionsContainer.css('height', $(window).height() - 52);
     myChart = echarts.init(canvasContainer.get(0));
 
     var _option = {};
@@ -102,6 +102,16 @@ function refreshChart() {
     _option.title = title;
     _option.legend = legend;
     _option.series = series;
+    _option.toolbox = {
+        feature: {
+            saveAsImage: {
+                show: true,
+                title: '保存为png图片',
+                backgroundColor: 'transparent'
+            }
+        },
+        bottom: 0
+    }
     if(!document.getElementById('forbiddenBgColor').checked)
         _option.backgroundColor = $("#backgroundColor").val();
 
@@ -138,10 +148,4 @@ function refreshDynamicDataGroup() {
     for(var i = 0; i < dataItem.length; i++){
         $(dataItem.get(i)).find('label').text(i + 1);
     }
-}
-
-function downloadPng(aLink) {
-    var canvas = document.getElementsByTagName("canvas");
-    aLink.download = "chart-pie";
-    aLink.href = canvas[0].toDataURL("image/png");
 }

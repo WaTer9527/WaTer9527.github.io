@@ -224,6 +224,9 @@ pre {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-wechat:before { content: "\e600"; }
+.icon-github:before { content: "\e601"; }
+
 .wechat-link {
 	position: relative;
 	cursor: pointer;
