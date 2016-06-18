@@ -108,6 +108,10 @@ function refreshChart() {
                 show: true,
                 title: '保存为png图片',
                 backgroundColor: 'transparent'
+            },
+            dataView: {
+                show: true,
+                title: '数据视图',
             }
         },
         bottom: 0
