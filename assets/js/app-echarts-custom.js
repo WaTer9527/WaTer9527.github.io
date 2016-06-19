@@ -34,6 +34,9 @@ $(function(){
     option_component_range.on("change",null,null,function(){
         refreshChart();
     });
+    option_component_input.change(function(){
+        refreshChart();
+    });
     $(".container-fluid").delegate("input","keyup",function(){
         refreshChart();
     });
@@ -61,10 +64,6 @@ $(function(){
         dynamicDataGroup.append(dynamicDataItem);
     });
 
-    // $("nav .nav-tabs").click(function(e){
-    //     e.preventDefault();
-    //     $(this).tab("show");
-    // });
 });
 
 $(window).resize(function(){
@@ -116,8 +115,35 @@ function refreshChart() {
         },
         bottom: 0
     }
+
+    //设置全局参数
     if(!document.getElementById('forbiddenBgColor').checked)
-        _option.backgroundColor = $("#backgroundColor").val();
+        _option.backgroundColor = $("#global-backgroundColor").val();
+
+    _option.color = getGlobalColors();
+
+    _option.textStyle = {
+        color: $("#global-textStyle-color").val(),
+        fontStyle: $("#global-textStyle-fontStyle").val(),
+        fontWeight: $("#global-textStyle-fontWeight").val(),
+        fontFamily: $("#global-textStyle-fontFamily").val(),
+        fontSize: $("#global-textStyle-fontSize").val()
+    }
+
+
+    _option.animation = document.getElementById("global-animation").checked;
+    if(_option.animation){
+        _option.animationDuration = $("#global-animationDuration").val();
+        _option.animationDelay = function(index){
+            return index * parseInt($("#global-animationDelay").val());
+        }
+        _option.animationEasing = $("#global-animationEasing").val();
+        _option.animationDurationUpdate = $("#global-animationDurationUpdate").val();
+        _option.animationDelayUpdate = $("#global-animationDelayUpdate").val();
+        _option.animationEasingUpdate = function(index){
+            return index * parseInt($("#global-animationEasingUpdate").val());
+        }
+    }
 
     myChart.setOption(_option);
 }
@@ -152,4 +178,15 @@ function refreshDynamicDataGroup() {
     for(var i = 0; i < dataItem.length; i++){
         $(dataItem.get(i)).find('label').text(i + 1);
     }
+}
+
+function getGlobalColors() {
+    var colors = [],
+        _globalColors = $(".global-color");
+
+    for(var i = 0; i < _globalColors.length; i++) {
+        colors[i] = _globalColors[i].value;
+    }
+
+    return colors;
 }

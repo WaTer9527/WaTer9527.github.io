@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>图表生成</title>
 	<meta name="description" content="使用echarts在线制作图表，提供png格式图表下载">
-	<meta name="keywords" content="图表,饼图,echarts,图表制作">
+	<meta name="keywords" content="图表,饼图,柱状图,折线图,echarts,图表制作,在线图表,傻瓜式图表">
 	
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ site.url }}/assets/css/app-echarts-custom.css" rel="stylesheet">
@@ -57,11 +57,111 @@
                     <div class="tab-pane fade in active" role="tabpanel" id="options-global">
                         <form class="form-horizontal">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">背景颜色</label>
-                                <div class="col-sm-4">
+                                <label class="col-sm-4 col-md-2 control-label">背景颜色</label>
+                                <div class="col-sm-8 col-md-4">
                                     <input type="checkbox" id="forbiddenBgColor" checked>
                                     <label for="forbiddenBgColor">透明</label>
-                                    <input type="color" id="backgroundColor" value="#2c343c">
+                                    <input id="global-backgroundColor" type="color" value="#2c343c">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-md-2 control-label">颜色列表</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <!--
+                                    <button class="btn btn-xs btn-primary" id="add-color-btn">增加</button>
+                                    <button class="btn btn-xs btn-danger" id="delete-color=">删除</button>
+                                    -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="clearfix" style="margin-left: 15px;margin-right: 15px;">
+                                    <input type="color" class="global-color" value="#c23531">
+                                    <input type="color" class="global-color" value="#2f4554">
+                                    <input type="color" class="global-color" value="#61a0a8">
+                                    <input type="color" class="global-color" value="#d48265">
+                                    <input type="color" class="global-color" value="#91c7ae">
+                                    <input type="color" class="global-color" value="#749f83">
+                                    <input type="color" class="global-color" value="#ca8622">
+                                    <input type="color" class="global-color" value="#bda29a">
+                                    <input type="color" class="global-color" value="#6e7074">
+                                    <input type="color" class="global-color" value="#546570">
+                                    <input type="color" class="global-color" value="#c4ccd3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-md-2 control-label">文字颜色</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <input id="global-textStyle-color" type="color" class=" form-control" value="#000000">
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">文字风格</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <select id="global-textStyle-fontStyle" class="form-control">
+                                        <option value="normal" selected>normal</option>
+                                        <option value="italic">italic</option>
+                                        <option value="oblique">oblique</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">文字粗细</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <select id="global-textStyle-fontWeight" class="form-control">
+                                        <option value="normal" selected>normal</option>
+                                        <option value="bold">bold</option>
+                                        <option value="bolder">bolder</option>
+                                        <option value="lighter">lighter</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                        <option value="300">300</option>
+                                        <option value="400">400</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">文字系列</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <select id="global-textStyle-fontFamily" class="form-control">
+                                        <option value="sans-serif" selected>sans-serif</option>
+                                        <option value="Microsoft YaHei">Microsoft YaHei</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">文字大小</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <input id="global-textStyle-fontSize" type="number" step="0.5" class="form-control" value="12">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-md-2 control-label">动画</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <input id="global-animation" type="checkbox" checked>
+                                    <label for="global-animation">开启</label>
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">时长</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <input id="global-animationDuration" type="number" class="form-control" value="1000" step="100" placeholder="单位：毫秒">
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">缓动效果</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <select id="global-animationEasing" class="form-control">
+                                        <option value="cubicOut">cubicOut</option>
+                                        <option value="linear">linear</option>
+                                        <option value="quadraticIn">quadraticIn</option>
+                                        <option value="quadraticOut">quadraticOut</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">延迟时间</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <input id="global-animationDelay" type="number" class="form-control" value="0" step="50" placeholder="单位：毫秒">
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">更新时长</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <input id="global-animationDurationUpdate" type="number" class="form-control" value="300" step="50" placeholder="单位：毫秒">
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">更新缓动</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <select id="global-animationEasingUpdate" class="form-control">
+                                        <option value="cubicOut" selected>cubicOut</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-4 col-md-2 control-label">更新延迟</label>
+                                <div class="col-sm-8 col-md-4">
+                                    <input id="global-animationDelayUpdate" type="number" class="form-control" value="0" step="50" placeholder="单位：毫秒">
                                 </div>
                             </div>
                         </form>
