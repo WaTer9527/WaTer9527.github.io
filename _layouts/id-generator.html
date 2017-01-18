@@ -196,6 +196,16 @@
 		function generateId() {
 			var array = new Array();
 			
+			var genders = document.getElementsByName("gender");
+			var genderValue;
+			
+			for( var i in genders) {
+				if(genders[i].checked) {
+					genderValue = genders[i].value;
+					break;
+				}
+			}
+			
 			array.push($province.val());
 			array.push($city.val());
 			array.push($county.val());
@@ -204,8 +214,7 @@
 			array.push($day.val());
 			array.push(Math.floor(Math.random() * 10));
 			array.push(Math.floor(Math.random() * 10));
-			console.log($("input[name=gender][checked]").val());
-			array.push(sexRandomNum[$("input[name=gender][checked]").val()][Math.floor(Math.random() * 4)]); // TODO
+			array.push(sexRandomNum[genderValue][Math.floor(Math.random() * 4)]);
 			array.push(generateCheckNumber(array));
 			
 			return array.join("");
