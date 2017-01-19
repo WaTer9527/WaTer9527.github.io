@@ -56,10 +56,10 @@
 				</div>
 			</div>
 			
-			<div class="form-inline" role="form" style="margin-top: 15px;">
+			<div class="form-inline" role="form" id="time-point" style="margin-top: 15px;">
 				<div class="form-group">
 					<div class="radio">
-						<label><input type="radio" name="timePoint" value="day-0" checked> 今天</label>
+						<label><input type="radio" id="todayBtn" name="timePoint" value="day-0"> 今天</label>
 					</div>
 				</div>
 				<div class="form-group">
@@ -139,7 +139,7 @@
 				</div>
 				<div class="form-group">
 					<div class="radio">
-						<label><input type="radio" name="gender" value="female" checked> 女</label>
+						<label><input type="radio" name="gender" value="female"> 女</label>
 					</div>
 				</div>
 			</div>
@@ -163,7 +163,7 @@
 			$day = $("#day"),
 			$exeBtn = $("#exeBtn"),
 			$idNos = $("#idNos"),
-			$genders = $("input[name=gender]");
+			$timePoints = $("input[name=timePoint]");
 			
 		var sexRandomNum = {"male":[1, 3, 5, 7, 9], "female":[0, 2, 4, 6, 8]}; // 用于生成身份证倒数第二位
 		$(function() {
@@ -173,6 +173,7 @@
 			$city.change(updateCounty);
 			$month.change(updateDay);
 			$exeBtn.click(refreshIds);
+			$timePoints.click(changeTimePoint);
 				
 			// 初始化省市区
 			for(var i in provincesJson) {
@@ -182,11 +183,42 @@
 			
 			// 初始化年月日
 			var currentYear = new Date().getFullYear();
-			
 			for(var i = 0; i < 100; i++) {
 				$year.append('<option value="' + (currentYear - i) + '">' + (currentYear - i) + '年</option>');
 			}
+			$("#todayBtn").click();
+			
+			// 生成默认身份证
+			$exeBtn.click();
 		})
+		
+		function changeTimePoint(e) {
+			var timePointsValue = e.target.value,
+				unit = timePointsValue.split('-')[0],
+				number = timePointsValue.split('-')[1],
+				currentDate = new Date(),
+				newDate;
+				
+			switch(unit) {
+				case 'day':
+					newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - number);
+					break;
+				case 'month':
+					newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - number, currentDate.getDate());
+					break;
+				case 'year':
+					newDate = new Date(currentDate.getFullYear() - number, currentDate.getMonth(), currentDate.getDate());
+					break;
+				default:
+					return;
+			}
+			var year = newDate.getFullYear(),
+				month = newDate.getMonth() + 1,
+				day = newDate.getDate();
+			$("#year").val(year);
+			$("#month").val(month < 10 ? '0' + month : month);
+			$("#day").val(day < 10 ? '0' + day : day);
+		}
 		
 		function refreshIds() {
 			var id = generateId();
