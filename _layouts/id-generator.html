@@ -226,7 +226,7 @@
 		}
 		
 		function generateId() {
-			var array = new Array();
+			var idStr;
 			
 			var genders = document.getElementsByName("gender");
 			var genderValue;
@@ -238,25 +238,16 @@
 				}
 			}
 			
-			array.push($province.val());
-			array.push($city.val());
-			array.push($county.val());
-			array.push($year.val());
-			array.push($month.val());
-			array.push($day.val());
-			array.push(Math.floor(Math.random() * 10));
-			array.push(Math.floor(Math.random() * 10));
-			array.push(sexRandomNum[genderValue][Math.floor(Math.random() * 4)]);
-			array.push(generateCheckNumber(array));
+			idStr = $province.val() + $city.val() + $county.val() + $year.val() + $month.val() + $day.val() + Math.floor(Math.random() * 100) + sexRandomNum[genderValue][Math.floor(Math.random() * 4)];
 			
-			return array.join("");
+			return idStr + generateCheckNumber(idStr);
 		}
 		
 		function generateCheckNumber(array) {
 			var stard = "10X98765432", //最后一位身份证的号码
 				first = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]; //1-17系数
-			var sum=0;
-			for (var i = 0,d = array.length; i < d; i++){
+			var sum = 0;
+			for (var i = 0; i < 17; i++){
 				sum += array[i] * first[i];
 			}
 			return stard[sum % 11];
