@@ -39,9 +39,11 @@ $(function() {
 		addBtn = $("#add-btn"),
 		generateBtn = $("#generate-btn"),
 		generateBtnXinhua = $("#generate-btn-xinhua"),
+		generateBtnTimestamp = $("#generate-btn-timestamp"),
 		appSecret = $("#appSecret"),
 		sign = $("#sign"),
-		xinhuaSign = $("#xinhuaSign");
+		xinhuaSign = $("#xinhuaSign"),
+		generatedTimestamp = $("#generated-timestamp");
 	dynamicDataGroup.delegate(".delete-btn","click",function(){
         $(this).closest(".dynamic-data-item").remove();
     });
@@ -79,6 +81,7 @@ $(function() {
 			str += sortKeyValuePairs[i].key + sortKeyValuePairs[i].value;
 		}
 		str += appSecret.val();
+		console.log(str);
 		sign.val(CryptoJS.SHA1(str));
 	});
 	generateBtnXinhua.click(function(){
@@ -90,7 +93,9 @@ $(function() {
 		str += appSecret.val();
 		xinhuaSign.val(CryptoJS.MD5(str));
 	});
-	
+	generateBtnTimestamp.click(function(){
+		generatedTimestamp.val(new Date().getTime());
+	});
 })
 
 function changeTimePoint(e) {
