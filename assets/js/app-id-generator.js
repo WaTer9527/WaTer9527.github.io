@@ -33,6 +33,64 @@ $(function() {
 	
 	// 生成默认身份证
 	$exeBtn.click();
+	
+	// =======签名相关========
+	var dynamicDataGroup = $(".dynamic-data-group"),
+		addBtn = $("#add-btn"),
+		generateBtn = $("#generate-btn"),
+		generateBtnXinhua = $("#generate-btn-xinhua"),
+		appSecret = $("#appSecret"),
+		sign = $("#sign"),
+		xinhuaSign = $("#xinhuaSign");
+	dynamicDataGroup.delegate(".delete-btn","click",function(){
+        $(this).closest(".dynamic-data-item").remove();
+    });
+	addBtn.click(function(){
+        var index = $(".dynamic-data-group .data-value").length + 1;
+        //创建元素
+        var dynamicDataItem = "<div class=\"dynamic-data-item clearfix\">"
+            + "<label for=\"\" class=\"col-sm-1 control-label\">" + index + "</label>"
+            + "<div class=\"col-sm-4\">"
+            + "<input type=\"text\" class=\"form-control data-name\" value=\"\" placeholder=\"key\">"
+            + "</div>"
+            + "<div class=\"col-sm-5\">"
+            + "<input type=\"text\" class=\"form-control data-value\" value=\"\" placeholder=\"value\">"
+            + "</div>"
+            + "<div class=\"col-sm-2\">"
+            + "<button class=\"btn btn-xs btn-danger delete-btn\" type=\"buttton\" title=\"删除该条数据\">删除</button>"
+            + "</div>"
+            + "</div>";
+
+        dynamicDataGroup.append(dynamicDataItem);
+    });
+	generateBtn.click(function() {
+		// 生成签名
+		var str = appSecret.val();
+		var keyValuePairs = new Array();
+		var dataNames = $(".dynamic-data-group .data-name");
+		var dataValues = $(".dynamic-data-group .data-value");
+		for (var i = 0; i < dataValues.length; i++) {
+			keyValuePairs.push({key: dataNames[i].value, value: dataValues[i].value});
+		}
+		var sortKeyValuePairs = keyValuePairs.sort(function(a, b) {
+			return -a.key.localeCompare(b.key);
+		});
+		for (var i = 0; i < sortKeyValuePairs.length; i++) {
+			str += sortKeyValuePairs[i].key + sortKeyValuePairs[i].value;
+		}
+		str += appSecret.val();
+		sign.val(CryptoJS.SHA1(str));
+	});
+	generateBtnXinhua.click(function(){
+		// 生成新华签名
+		var str = '';
+		for(var i = 0; i < 5; i++) {
+			str += $(".dynamic-data-group .data-value").get(i).value
+		}
+		str += appSecret.val();
+		xinhuaSign.val(CryptoJS.MD5(str));
+	});
+	
 })
 
 function changeTimePoint(e) {
