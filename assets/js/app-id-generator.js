@@ -75,10 +75,10 @@ $(function() {
 			keyValuePairs.push({key: dataNames[i].value, value: dataValues[i].value});
 		}
 		var sortKeyValuePairs = keyValuePairs.sort(function(a, b) {
-			return -a.key.localeCompare(b.key);
+			return a.key.localeCompare(b.key);
 		});
 		for (var i = 0; i < sortKeyValuePairs.length; i++) {
-			str += sortKeyValuePairs[i].key + sortKeyValuePairs[i].value;
+			str += sortKeyValuePairs[i].key.toUpperCase() + sortKeyValuePairs[i].value;
 		}
 		str += appSecret.val();
 		console.log(str);
