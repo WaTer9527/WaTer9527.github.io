@@ -82,7 +82,7 @@ $(function() {
 		}
 		str += appSecret.val();
 		console.log(str);
-		sign.val(CryptoJS.SHA1(str));
+		sign.val(CryptoJS.SHA1(str).toUpperCase());
 	});
 	generateBtnXinhua.click(function(){
 		// 生成新华签名
